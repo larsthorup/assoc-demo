@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import * as R from 'ramda';
 import produce from 'immer';
 import iassign from 'immutable-assign';
-import { update } from './assoc';
+import { assign } from './assign';
 
 const ops = 10000;
 const opsPerSecond = (start: bigint) => {
@@ -57,12 +57,14 @@ const testPerformance = () => {
   // update
   const assocStart = process.hrtime.bigint();
   for (let i = 0; i < ops; ++i) {
-    const newState = update(state)
-      .set((s) => s.chat.contact[key])
-      .to((c) => ({ ...c, name: 'Laura' }));
+    const newState = assign(
+      (s) => s.chat.contact[key],
+      (c) => ({ ...c, name: 'Laura' }),
+      state
+    );
   }
   const assocOpsPerSecond = opsPerSecond(assocStart);
-  console.log(`assoc: ${assocOpsPerSecond} ops/sec`);
+  console.log(`assign: ${assocOpsPerSecond} ops/sec`);
 
   // iassign
   const iassignStart = process.hrtime.bigint();

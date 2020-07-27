@@ -12,7 +12,7 @@ Performance numbers:
 ```
 ramda: 357142 ops/sec
 typescript: 344827 ops/sec
-assoc: 212765 ops/sec
+assign: 212765 ops/sec
 iassign: 153846 ops/sec
 immer: 51546 ops/sec
 ```

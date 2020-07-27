@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { update } from './assoc';
+import { assign } from './assign';
 
 const testUpdateLeaf = () => {
   const state = {
@@ -10,9 +10,11 @@ const testUpdateLeaf = () => {
       },
     },
   };
-  const newState = update(state)
-    .set((s) => s.chat.contact['1'].name)
-    .to((_) => 'Laura');
+  const newState = assign(
+    (s) => s.chat.contact['1'].name,
+    (_) => 'Laura',
+    state
+  );
   assert.deepEqual(newState, {
     chat: {
       contact: {
@@ -41,9 +43,11 @@ const testUpdateNonLeaf = () => {
       },
     },
   };
-  const newState = update(state)
-    .set((s) => s.chat.contact['1'])
-    .to((c) => ({ ...c, name: 'Laura' }));
+  const newState = assign(
+    (s) => s.chat.contact['1'],
+    (c) => ({ ...c, name: 'Laura' }),
+    state
+  );
   assert.deepEqual(newState, {
     chat: {
       contact: {
@@ -72,9 +76,11 @@ const testAddNode = () => {
       },
     },
   };
-  const newState = update(state)
-    .set((s) => s.chat.contact)
-    .to((c) => ({ ...c, '3': { id: '3', name: 'Laura' } }));
+  const newState = assign(
+    (s) => s.chat.contact,
+    (c) => ({ ...c, '3': { id: '3', name: 'Laura' } }),
+    state
+  );
   assert.deepEqual(newState, {
     chat: {
       contact: {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && node dist/assoc.demo && node dist/assoc.test && node dist/assoc.performance"
+    "test": "tsc && node dist/assign.demo && node dist/assign.test && node dist/dict.test && node dist/update.test && node dist/assign.performance"
   },
   "author": "Lars Thorup <lars@zealake.com> (https://www.zealake.com/)",
   "license": "MIT",

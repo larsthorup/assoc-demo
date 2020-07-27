@@ -2,7 +2,8 @@ import * as assert from 'assert';
 import * as R from 'ramda';
 import produce from 'immer';
 import iassign from 'immutable-assign';
-import { update } from './assoc';
+import { assign } from './assign';
+import { update } from './update';
 
 type State = {
   chat: {
@@ -71,6 +72,14 @@ const newStateIassign = iassign(
   }
 );
 assert.deepEqual(newStateIassign, expected);
+
+// assign: type-safe, doesn't look mutable, no duplication
+const newStateAssign = assign(
+  (state) => state.chat.contact[key],
+  (c) => ({ ...c, name: 'Laura' }),
+  state
+);
+assert.deepEqual(newStateAssign, expected);
 
 // update: type-safe, doesn't look mutable, no duplication, fluent
 const newState = update(state)
